@@ -5,8 +5,50 @@
      <!--El atributo *ngFor me permite iterar sobre una matriz de objetos 
      	dish: como vamos a llamar a cada objeto
      	dishes: nombre del array donde estan los objetos-->
+  <div fxFlex>
+    <div>
+      <h3>Menu</h3>
+      <hr>
+    </div>
+  </div>
 
-  <mat-list fxFlex>
+  <!-- mat-grid-list: Divide la lista en forma de cuadro y depende del numero de columnas que le demos -->
+
+  <div fxFlex>
+    <mat-grid-list cols="2" rowHeight="200px">
+      <mat-grid-tile *ngFor="let dish of dishes">
+        <img height="200px" src={{dish.image}} alt={{dish.name}}>
+        <mat-grid-tile-footer>
+          <h1>{{dish.name | uppercase}}</h1>
+        </mat-grid-tile-footer>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+  <!-- Mira dentro del objeto que le estamos enviando y si este es nulo, no lo añade -->
+
+  <div fxFlex *ngIf="selectedDish">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <h3>{{selectedDish.name | uppercase}}</h3>
+        </mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src={{selectedDish.image}} alt={{selectedDish.name}}>
+      <mat-card-content>
+        <p>{{selectedDish.description}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+    <!-- mat-list: La lista de objetos se ordenara linealmente una despues de la otra -->
+
+    <mat-list fxFlex>
     <mat-list-item *ngFor="let dish of dishes">
       <img matListAvatar src={{dish.image}} alt={{dish.name}}>
       <h1 matLine> {{dish.name}} </h1>

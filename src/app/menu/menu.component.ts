@@ -9,9 +9,11 @@ import { DishService } from '../services/dish.service';
 })
 export class MenuComponent implements OnInit {
 
+
   dishes: Dish[];
 
   selectedDish: Dish;
+  /*Mira si tienes que añadir tambien el selectesLeader*/
 
   constructor(private dishService: DishService) { }
 

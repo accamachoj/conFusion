@@ -4,3 +4,27 @@
   <button mat-button mat-dialog-close>&times;</button>
   <!-- times; eso lo mostrara como una cruz en la pantalla -->
 </mat-toolbar>
+
+<!-- Reflejan el estado del formulario se pueden mostrar alli mismo-->
+<p>{{ user | json }}</p>
+
+<!-- Hace que la validacion sea cedida a angular y no a html -->
+<form novalidate (ngSubmit)="onSubmit()">
+
+  <mat-dialog-content>
+    <p>
+      <mat-form-field>
+        <input matInput placeholder="Username" type="text" [(ngModel)]="user.username" name="username">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Password" type="password" [(ngModel)]="user.password" name="password">
+      </mat-form-field>
+      <mat-checkbox [(ngModel)]="user.remember" name="remember">Remember Me</mat-checkbox>
+    </p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <span class="flex-spacer"></span>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button type="submit" mat-button class="background-primary text-floral-white" >Login</button>
+  </mat-dialog-actions>
+</form>

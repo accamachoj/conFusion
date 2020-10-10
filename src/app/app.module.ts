@@ -12,6 +12,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms'; 
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
@@ -51,12 +54,15 @@ import { LoginComponent } from './login/login.component';
     MatGridListModule,
     MatCardModule,
     MatButtonModule,
+    MatSelectModule,
+    MatSlideToggleModule,
     FlexLayoutModule,
     AppRoutingModule,
     MatFormFieldModule, 
     MatInputModule,
     MatCheckboxModule,
     MatDialogModule,
+    ReactiveFormsModule,
     FormsModule
 
   ],

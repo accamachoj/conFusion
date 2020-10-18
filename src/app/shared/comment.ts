@@ -4,3 +4,6 @@ export class Comment {
     author: string;
     date: string;
 }
+
+var d = new Date();
+export const dateISO = d.toISOString();

@@ -16,7 +16,7 @@ export class ContactComponent implements OnInit {
   contactType = ContactType;
   @ViewChild('fform') feedbackFormDirective;
 
-
+  /*Este formato se puede sacar de la pagina de Angular*/
   formErrors = {
     'firstname': '',
     'lastname': '',
@@ -86,6 +86,7 @@ export class ContactComponent implements OnInit {
     this.feedbackFormDirective.resetForm();
   }
 
+  /*Este formato se puede sacar de la pagina de Angular*/
   onValueChanged(data?: any) {
     if (!this.feedbackForm) { return; }
     const form = this.feedbackForm;

@@ -11,6 +11,7 @@ export class MenuComponent implements OnInit {
 
 
   dishes: Dish[];
+  errMess: string;
 
   /*Mira si tienes que añadir tambien el selectesLeader*/
 
@@ -20,7 +21,8 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.dishService.getDishes()
-      .subscribe(dishes => this.dishes = dishes);;
+      .subscribe(dishes => this.dishes = dishes,
+        errMess => this.errMess = <any> errMess);
   }
 
 }

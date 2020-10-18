@@ -7,14 +7,25 @@ import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { switchMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-/*Input es una forma de proporcionar informacion
-a un componente desde otro componente */
+import { visibility } from '../animations/app.animations';
+import { flyInOut, expand } from '../animations/app.animations';
 
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
-  styleUrls: ['./dishdetail.component.scss']
+  styleUrls: ['./dishdetail.component.scss'],
+  host: {
+  '[@flyInOut]': 'true',
+  'style': 'display: block;'
+  },
+  animations: [
+    visibility(),
+    flyInOut(),
+    expand()]
+
 })
+
+
 export class DishdetailComponent implements OnInit {
 
   dishIds: string[];
@@ -24,8 +35,9 @@ export class DishdetailComponent implements OnInit {
   dish: Dish;
   commentForm: FormGroup;
   comment: Comment;
-  dishcopy: Dishh;
+  dishcopy: Dish;
   dateiso = dateISO;
+  visibility = 'shown';
   @ViewChild('fform') commentFormDirective;
 
 
@@ -58,9 +70,10 @@ export class DishdetailComponent implements OnInit {
 
     this.dishService.getDishIds()
       .subscribe((dishIds) => this.dishIds = dishIds);
-  	this.route.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); }, 
-        errMess => this.errMess = <any>errMess);
+  	this.route.params
+    .pipe(switchMap((params: Params) => { this.visibility = 'hidden'; return this.dishService.getDish(+params['id']); }))
+    .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); this.visibility = 'shown'; },
+      errmess => this.errMess = <any>errmess);
   }
 
   createForm() {
@@ -117,7 +130,6 @@ export class DishdetailComponent implements OnInit {
       }
     }
   }
-
 
   setPrevNext(dishId: string) {
     const index = this.dishIds.indexOf(dishId);

@@ -24,6 +24,7 @@ export class DishdetailComponent implements OnInit {
   dish: Dish;
   commentForm: FormGroup;
   comment: Comment;
+  dishcopy: Dishh;
   dateiso = dateISO;
   @ViewChild('fform') commentFormDirective;
 
@@ -58,7 +59,7 @@ export class DishdetailComponent implements OnInit {
     this.dishService.getDishIds()
       .subscribe((dishIds) => this.dishIds = dishIds);
   	this.route.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); }, 
+      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); }, 
         errMess => this.errMess = <any>errMess);
   }
 
@@ -81,12 +82,16 @@ export class DishdetailComponent implements OnInit {
     this.commentForm.value.date = this.dateiso;
     this.comment = this.commentForm.value;
     console.log(this.comment);
-    this.dish.comments.push(this.commentForm.value);
+    this.dishcopy.comments.push(this.commentForm.value);
+    this.dishService.putDish(this.dishcopy)
+    .subscribe(dish => {
+      this.dish = dish; this.dishcopy = dish;
+    },
+    errMess => {this.dish = null; this.dishcopy = null; this.errMess = <any>errMess; });
     this.commentForm.reset({
       author: '',
       rating: '5',
-      comment: '',
-      date: this.dateiso
+      comment: ''
     });
     this.commentFormDirective.resetForm(
       {rating: 5});
